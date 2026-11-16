@@ -3,65 +3,197 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Cadastro de Clientes</title>
+    <title>Estoque</title>
     <link rel="stylesheet" href="style.css">
 </head>
 <body>
 
-    <!-- TELA 1: LISTA DE CLIENTES (Equivalente à ClientesTela) -->
-    <main id="telaLista" class="container oculto">
-        <div class="header-frame">
-            <h1>Clientes Cadastrados</h1>
+    <!-- CABEÇALHO (aparece em todas as telas) -->
+    <header class="topo">
+        <div class="logo">📦</div>
+        <h1>ESTOQUE</h1>
+        <span class="status-dot" title="Online"></span>
+        <button type="button" class="btn-icone" id="btnScanner" title="Ler código de barras">▥</button>
+        <button type="button" class="btn-icone sair" id="btnSair" title="Sair">⇥</button>
+    </header>
+
+    <!-- TELA 1: INÍCIO -->
+    <main id="telaInicio" class="conteudo">
+
+        <div class="busca">
+            <input type="search" id="inputBusca" placeholder="Buscar produto ou código de barras">
         </div>
 
-        <ul id="listaClientes" class="lista-clientes"></ul>
+        <div class="cabecalho-secao">
+            <h2>Visão geral do estoque</h2>
+            <button type="button" class="btn-novo" id="btnNovoProduto">+ Novo produto</button>
+        </div>
 
-        <button type="button" class="btn-salvar" id="btnNovoCliente">
-            + Novo Cliente
-        </button>
+        <div class="resumo-card">
+            <span class="resumo-icone">💼</span>
+            <div>
+                <small>Total de itens</small>
+                <strong id="resumoTotal">0</strong>
+            </div>
+        </div>
+
+        <div class="resumo-card">
+            <span class="resumo-icone aviso">⚠</span>
+            <div>
+                <small>Estoque baixo</small>
+                <strong id="resumoBaixo">0</strong>
+            </div>
+        </div>
+
+        <div class="resumo-card">
+            <span class="resumo-icone perigo">📅</span>
+            <div>
+                <small>Vencendo lote</small>
+                <strong id="resumoVencendo">0</strong>
+            </div>
+        </div>
+
+        <div id="listaProdutos"></div>
     </main>
 
-    <!-- TELA 2: CADASTRO DE CLIENTES (Equivalente ao CadastroCliente.xaml) -->
-    <main id="telaCadastro" class="container">
-        <div class="header-frame">
-            <h1>Cadastro de Clientes</h1>
+    <!-- TELA 2: CADASTRO DE PRODUTO -->
+    <main id="telaCadastro" class="conteudo oculto">
+
+        <h2 id="tituloCadastro" class="titulo-cadastro">Novo produto</h2>
+
+        <div class="form-secao">
+            <label class="titulo-campo" for="inputCodigoBarras">Código de barras</label>
+            <div class="campo">
+                <input type="text" id="inputCodigoBarras" inputmode="numeric" placeholder="7891234567890">
+            </div>
+            <p class="ajuda">Pode ler com a câmera ou digitar. Deixe vazio se o produto não tiver código.</p>
         </div>
 
-        <label>ID:</label>
-        <span id="IdLabel" class="id-valor"></span>
+        <div class="form-secao">
+            <span class="titulo-campo">Foto do produto (opcional)</span>
+            <div class="fotos">
+                <button type="button" class="btn-foto" id="btnFotoCamera">
+                    <span>📷</span>Tirar foto
+                </button>
+                <button type="button" class="btn-foto" id="btnFotoArquivo">
+                    <span>⬆</span>Enviar do dispositivo
+                </button>
+            </div>
+            <input type="file" id="inputFotoCamera" accept="image/*" capture="environment" class="oculto">
+            <input type="file" id="inputFotoArquivo" accept="image/*" class="oculto">
 
-        <label for="EntryNomeCliente">Nome</label>
-        <div class="input-frame">
-            <input type="text" id="EntryNomeCliente" placeholder="Insira um nome...">
+            <div class="preview-foto">
+                <img id="previewFoto" class="oculto" alt="Foto do produto">
+                <button type="button" id="btnRemoverFoto" class="link-vermelho oculto">Remover foto</button>
+            </div>
+            <p class="ajuda">Toque em Tirar foto para usar a câmera do celular, ou envie uma imagem do dispositivo.</p>
         </div>
 
-        <label for="EntryCPFCliente">CPF:</label>
-        <div class="input-frame">
-            <input type="text" id="EntryCPFCliente" placeholder="Insira um CPF..." maxlength="15">
+        <div class="form-secao">
+            <label class="titulo-campo" for="inputNome">Nome do produto</label>
+            <div class="campo">
+                <input type="text" id="inputNome" placeholder="Ex.: Arroz Tipo 1 — 5kg">
+            </div>
         </div>
 
-        <label for="EntryTelefoneCliente">Telefone</label>
-        <div class="input-frame">
-            <input type="tel" id="EntryTelefoneCliente" placeholder="Insira um telefone...">
+        <div class="form-secao">
+            <div class="linha-duas-colunas">
+                <div>
+                    <label class="titulo-campo" for="selectUnidade">Unidade</label>
+                    <div class="campo">
+                        <select id="selectUnidade">
+                            <option value="un">un</option>
+                            <option value="cx">cx</option>
+                            <option value="kg">kg</option>
+                            <option value="g">g</option>
+                            <option value="L">L</option>
+                            <option value="ml">ml</option>
+                            <option value="pct">pct</option>
+                            <option value="fardo">fardo</option>
+                        </select>
+                    </div>
+                </div>
+                <div>
+                    <label class="titulo-campo" for="inputEstoqueMinimo">Estoque mínimo</label>
+                    <div class="campo">
+                        <input type="number" id="inputEstoqueMinimo" min="0" step="any" placeholder="0">
+                    </div>
+                </div>
+            </div>
+            <p class="ajuda">
+                No mínimo ou abaixo = CRÍTICO (vermelho). Até o dobro do mínimo = BAIXO (amarelo).
+            </p>
         </div>
 
-        <label for="EntryEmailCliente">E-Mail</label>
-        <div class="input-frame">
-            <input type="email" id="EntryEmailCliente" placeholder="Insira um e-mail...">
+        <div class="form-secao">
+            <div class="toggle-linha">
+                <div>
+                    <strong>Controlar por lote de fabricação</strong>
+                    <span class="ajuda-texto">Ative se precisar rastrear lotes e validade.</span>
+                </div>
+                <label class="toggle">
+                    <input type="checkbox" id="chkControlaLote">
+                    <span class="slider"></span>
+                </label>
+            </div>
         </div>
 
-        <button type="button" class="btn-salvar" id="btnSalvar">Salvar</button>
-        <button type="button" class="btn-excluir" id="btnExcluir">Excluir</button>
+        <div class="form-secao">
+            <label class="titulo-campo" for="inputQuantidadeInicial">Quantidade inicial</label>
+            <div class="campo">
+                <input type="number" id="inputQuantidadeInicial" min="0" step="any" placeholder="0">
+            </div>
+            <p class="ajuda" id="hintQuantidade"></p>
+        </div>
 
-        <button type="button" class="btn-voltar" id="btnVoltar" title="Voltar para a lista">
-            &#8592; Voltar
-        </button>
+        <div class="acoes-form">
+            <button type="button" class="btn-secundario" id="btnCancelarCadastro">Cancelar</button>
+            <button type="button" class="btn-principal" id="btnSalvarProduto">Cadastrar produto</button>
+        </div>
+
+        <button type="button" class="btn-excluir oculto" id="btnExcluir">Excluir produto</button>
     </main>
 
-    <!-- Importação dos scripts na ordem de dependência -->
-    <script src="Cliente.js"></script>
+    <!-- MODAL: ENTRADA / BAIXA -->
+    <div id="modalMovimento" class="modal-fundo oculto">
+        <div class="modal">
+            <h2 id="modalTitulo">Registrar entrada</h2>
+            <p class="produto-modal" id="modalProduto"></p>
+
+            <div class="form-secao">
+                <label class="titulo-campo" for="inputQuantidadeMov">Quantidade</label>
+                <div class="campo">
+                    <input type="number" id="inputQuantidadeMov" min="0" step="any" placeholder="0">
+                </div>
+            </div>
+
+            <div class="form-secao">
+                <label class="titulo-campo" for="inputObsMov">Observação (opcional)</label>
+                <div class="campo">
+                    <input type="text" id="inputObsMov" placeholder="Ex.: compra do fornecedor X">
+                </div>
+            </div>
+
+            <div class="acoes-form">
+                <button type="button" class="btn-secundario" id="btnCancelarMov">Cancelar</button>
+                <button type="button" class="btn-principal" id="btnConfirmarMov">Confirmar</button>
+            </div>
+        </div>
+    </div>
+
+    <!-- NAVEGAÇÃO INFERIOR -->
+    <nav class="nav-inferior">
+        <button type="button" data-nav="inicio" class="ativo"><span class="icone">⌂</span>Início</button>
+        <button type="button" data-nav="produtos"><span class="icone">▣</span>Produtos</button>
+        <button type="button" data-nav="relatorios"><span class="icone">📊</span>Relatórios</button>
+        <button type="button" data-nav="usuarios"><span class="icone">👥</span>Usuários</button>
+    </nav>
+
+    <!-- Scripts na ordem de dependência -->
+    <script src="Produto.js"></script>
+    <script src="Movimentacao.js"></script>
     <script src="ControleBase.js"></script>
-    <script src="ControleCliente.js"></script>
-    <script src="cadastro.js"></script>
+    <script src="ControleProduto.js"></script>
+    <script src="app.js"></script>
 </body>
 </html>
