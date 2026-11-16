@@ -1,0 +1,67 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Cadastro de Clientes</title>
+    <link rel="stylesheet" href="style.css">
+</head>
+<body>
+
+    <!-- TELA 1: LISTA DE CLIENTES (Equivalente à ClientesTela) -->
+    <main id="telaLista" class="container oculto">
+        <div class="header-frame">
+            <h1>Clientes Cadastrados</h1>
+        </div>
+
+        <ul id="listaClientes" class="lista-clientes"></ul>
+
+        <button type="button" class="btn-salvar" id="btnNovoCliente">
+            + Novo Cliente
+        </button>
+    </main>
+
+    <!-- TELA 2: CADASTRO DE CLIENTES (Equivalente ao CadastroCliente.xaml) -->
+    <main id="telaCadastro" class="container">
+        <div class="header-frame">
+            <h1>Cadastro de Clientes</h1>
+        </div>
+
+        <label>ID:</label>
+        <span id="IdLabel" class="id-valor"></span>
+
+        <label for="EntryNomeCliente">Nome</label>
+        <div class="input-frame">
+            <input type="text" id="EntryNomeCliente" placeholder="Insira um nome...">
+        </div>
+
+        <label for="EntryCPFCliente">CPF:</label>
+        <div class="input-frame">
+            <input type="text" id="EntryCPFCliente" placeholder="Insira um CPF..." maxlength="15">
+        </div>
+
+        <label for="EntryTelefoneCliente">Telefone</label>
+        <div class="input-frame">
+            <input type="tel" id="EntryTelefoneCliente" placeholder="Insira um telefone...">
+        </div>
+
+        <label for="EntryEmailCliente">E-Mail</label>
+        <div class="input-frame">
+            <input type="email" id="EntryEmailCliente" placeholder="Insira um e-mail...">
+        </div>
+
+        <button type="button" class="btn-salvar" id="btnSalvar">Salvar</button>
+        <button type="button" class="btn-excluir" id="btnExcluir">Excluir</button>
+
+        <button type="button" class="btn-voltar" id="btnVoltar" title="Voltar para a lista">
+            &#8592; Voltar
+        </button>
+    </main>
+
+    <!-- Importação dos scripts na ordem de dependência -->
+    <script src="Cliente.js"></script>
+    <script src="ControleBase.js"></script>
+    <script src="ControleCliente.js"></script>
+    <script src="cadastro.js"></script>
+</body>
+</html>

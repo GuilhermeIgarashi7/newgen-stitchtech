@@ -1,0 +1,160 @@
+* {
+    box-sizing: border-box;
+    font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+}
+
+body {
+    background-color: #5c5c5c;
+    margin: 0;
+    padding: 20px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    min-height: 100vh;
+}
+
+.container {
+    background-color: #808080;
+    width: 100%;
+    max-width: 450px;
+    padding: 16px;
+    border-radius: 12px;
+    box-shadow: 0 6px 18px rgba(0, 0, 0, 0.3);
+    display: flex;
+    flex-direction: column;
+}
+
+.oculto {
+    display: none;
+}
+
+.header-frame {
+    background-color: #919191;
+    border-radius: 10px;
+    padding: 12px;
+    margin: 6px 0 16px 0;
+    text-align: center;
+}
+
+.header-frame h1 {
+    color: #FFFFFF;
+    font-size: 1.2rem;
+    margin: 0;
+}
+
+label {
+    color: #FFFFFF;
+    margin-top: 10px;
+    margin-bottom: 4px;
+    font-size: 0.95rem;
+}
+
+.id-valor {
+    color: #FFFFFF;
+    font-weight: bold;
+    min-height: 20px;
+}
+
+.input-frame {
+    background-color: #b2b2b2;
+    border-radius: 5px;
+    padding: 5px;
+}
+
+.input-frame input {
+    width: 100%;
+    background: transparent;
+    border: none;
+    outline: none;
+    color: #000000;
+    font-size: 1rem;
+    padding: 4px;
+}
+
+.input-frame input::placeholder {
+    color: #4a4a4a;
+}
+
+.btn-salvar {
+    background-color: #a1a1a1;
+    color: #FFFFFF;
+    border: none;
+    border-radius: 6px;
+    padding: 12px;
+    margin-top: 20px;
+    font-size: 1rem;
+    font-weight: bold;
+    cursor: pointer;
+    transition: background-color 0.2s;
+}
+
+.btn-salvar:hover {
+    background-color: #b5b5b5;
+}
+
+.btn-excluir {
+    background-color: transparent;
+    color: #ff2e2e;
+    border: none;
+    padding: 10px;
+    margin-top: 6px;
+    font-size: 0.95rem;
+    font-weight: bold;
+    cursor: pointer;
+}
+
+.btn-excluir:hover {
+    text-decoration: underline;
+}
+
+.btn-voltar {
+    align-self: flex-start;
+    background-color: transparent;
+    color: #FFFFFF;
+    border: none;
+    padding: 6px 0;
+    margin-top: 12px;
+    font-size: 0.95rem;
+    cursor: pointer;
+}
+
+.btn-voltar:hover {
+    text-decoration: underline;
+}
+
+/* Estilos da Lista de Clientes */
+.lista-clientes {
+    list-style: none;
+    padding: 0;
+    margin: 0;
+    display: flex;
+    flex-direction: column;
+    gap: 8px;
+}
+
+.item-cliente {
+    background-color: #b2b2b2;
+    padding: 10px 12px;
+    border-radius: 6px;
+    cursor: pointer;
+    transition: background-color 0.2s;
+}
+
+.item-cliente:hover {
+    background-color: #c7c7c7;
+}
+
+.item-cliente strong {
+    display: block;
+    color: #000000;
+}
+
+.item-cliente small {
+    color: #333333;
+}
+
+.lista-vazia {
+    color: #FFFFFF;
+    text-align: center;
+    padding: 20px 0;
+}
